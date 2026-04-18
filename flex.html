@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Card</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+  <div class="users bg-gray-100 flex items-center justify-center min-h-screen gap-4 relative">
+    
+
+  </div>
+   <button 
+      id="requestBtn"
+      class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition absolute bottom-4 left-1/2 -translate-x-1/2">
+      Request
+    </button>
+
+  <script>
+    function Users(){fetch("https://randomuser.me/api/?results=5")
+.then((raw) => raw.json())
+.then((data) => {
+    document.querySelector(".users").innerHTML=""
+    data.results.forEach((elem)=>{
+
+        console.log(elem)
+        const card = document.createElement("div");
+        card.className = "bg-white shadow-lg rounded-2xl p-6 w-80 text-center";
+
+        const img = document.createElement("img");
+        img.src = elem.picture.medium;
+        img.className = "w-24 h-24 mx-auto rounded-full border-4 border-blue-500";
+
+        const name = document.createElement("h2");
+        name.className = "text-xl font-semibold mt-4";
+        name.textContent = elem.name.first + " " + elem.name.last
+
+        const email = document.createElement("p");
+        email.className = "text-gray-500 text-sm";
+        email.textContent = elem.email;
+
+        const role = document.createElement("p");
+        role.className = "mt-2 text-blue-500 font-medium";
+        role.textContent = elem.location.country;
+
+        const btn = document.createElement("button");
+        btn.className = "mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition";
+        btn.textContent = "Follow";
+
+        card.appendChild(img);
+        card.appendChild(name);
+        card.appendChild(email);
+        card.appendChild(role);
+        card.appendChild(btn);
+
+        document.querySelector(".users").appendChild(card);
+    })
+})}
+
+Users()
+
+let btn =document.querySelector("#requestBtn")
+btn.addEventListener("click",function(){
+    Users()
+})
+  </script>
+
+</body>
+</html>
